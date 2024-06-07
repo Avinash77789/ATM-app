@@ -57,4 +57,21 @@ contract Assessment {
         // emit the event
         emit Withdraw(_withdrawAmount);
     }
+
+    function calculateEstimatedInvestmentAmount(uint256 goldQuantity) public pure returns (uint256) {
+        uint256 pricePerGram = 50000; // Price of 10 grams of gold in INR
+        uint256 investment = (goldQuantity / 10) * pricePerGram; // Convert grams to 10 gram units
+        return investment;
+    }
+
+    function calculateProfit(uint256 investmentAmount, uint256 numYears) public pure returns (uint256) {
+        uint256 interestRate = 25; // 2.5% interest rate
+        uint256 returnAmount = investmentAmount * ((100 + interestRate) ** numYears) / 100 - investmentAmount;
+        return returnAmount;
+    }
+
+    function applyDiscount(uint256 investmentAmount, bool isOnlinePayment) public pure returns (uint256) {
+        uint256 discount = isOnlinePayment ? 100 : 0;
+        return investmentAmount - discount;
+    }
 }
